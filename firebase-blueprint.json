@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Route": {
+      "title": "Route",
+      "description": "A saved travel route",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner UID" },
+        "name": { "type": "string", "description": "User-defined name for the route" },
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "waypoints": { "type": "array", "items": { "type": "string" } },
+        "averageSpeed": { "type": "number" },
+        "departureTime": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "origin", "destination", "averageSpeed", "departureTime"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User documents"
+    },
+    "/routes/{routeId}": {
+      "schema": "Route",
+      "description": "Saved routes"
+    }
+  }
+}

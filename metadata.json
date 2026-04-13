@@ -1,0 +1,7 @@
+{
+  "name": "SkyWay Road Trip Weather",
+  "description": "A smart travel weather PWA that provides forecasts along your route based on your ETA.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
