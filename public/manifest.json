@@ -1,0 +1,21 @@
+{
+  "name": "SkyWay",
+  "short_name": "SkyWay",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "description": "Road trip weather planning with ETA-based forecasts.",
+  "icons": [
+    {
+      "src": "https://picsum.photos/seed/skyway/192/192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://picsum.photos/seed/skyway/512/512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

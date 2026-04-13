@@ -59,25 +59,29 @@ SkyWay is a smart travel weather application that provides detailed forecasts al
    npm run dev
    ```
 
-## Deployment on Netlify
+## Deployment on GitHub Pages
 
-To deploy this application on Netlify, follow these steps:
+GitHub Pages is a great free option for hosting SkyWay, especially for personal use on mobile.
 
-1. **Push to GitHub:** Ensure your code is pushed to a GitHub repository.
-2. **Connect to Netlify:**
-   - Log in to your Netlify account.
-   - Click "Add new site" > "Import from an existing project".
-   - Select GitHub and choose your repository.
-3. **Build Settings:**
-   - **Build Command:** `npm run build`
-   - **Publish Directory:** `dist`
-4. **Environment Variables:**
-   Go to **Site settings > Environment variables** and add:
-   - `VITE_OPENWEATHER_API_KEY`
-   - `VITE_GEMINI_API_KEY`
-5. **Firebase Configuration:**
-   - Make sure your Firebase project's **Authorized Domains** includes your Netlify URL (e.g., `your-site-name.netlify.app`).
-   - You can add this in the Firebase Console under **Authentication > Settings > Authorized Domains**.
+1. **Push to GitHub:** Create a new repository and push your code.
+2. **Set up Secrets:** 
+   - Go to your repo **Settings > Secrets and variables > Actions**.
+   - Add `VITE_GEMINI_API_KEY` and `VITE_OPENWEATHER_API_KEY`.
+3. **Configure GitHub Actions:**
+   - Create a file at `.github/workflows/deploy.yml` with a standard Vite deployment script.
+4. **Enable Pages:**
+   - Go to **Settings > Pages**.
+   - Under "Build and deployment", set the source to **GitHub Actions**.
+5. **Firebase Authorized Domains:**
+   - Add `your-username.github.io` to your Firebase project's **Authorized Domains**.
+
+## Android "Installation" (PWA)
+
+Since SkyWay is a Progressive Web App (PWA), you can "install" it on your Android phone:
+1. Open your deployed URL in Chrome on Android.
+2. Tap the three dots (menu) in the top right.
+3. Select **"Add to Home screen"** or **"Install app"**.
+4. SkyWay will now appear as an icon on your home screen and run in a clean, app-like window without the browser address bar.
 
 ## License
 
