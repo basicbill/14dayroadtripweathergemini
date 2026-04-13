@@ -59,7 +59,28 @@ SkyWay is a smart travel weather application that provides detailed forecasts al
    npm run dev
    ```
 
-## Deployment on GitHub Pages
+## Deployment Options
+
+### 1. Deployment on Netlify
+
+Netlify is a very popular and easy-to-use hosting service for React apps.
+
+1. **Push to GitHub:** Ensure your code is pushed to a GitHub repository.
+2. **Connect to Netlify:**
+   - Log in to your Netlify account.
+   - Click "Add new site" > "Import from an existing project".
+   - Select GitHub and choose your repository.
+3. **Build Settings:**
+   - **Build Command:** `npm run build`
+   - **Publish Directory:** `dist`
+4. **Environment Variables:**
+   - Go to **Site settings > Environment variables** and add:
+     - `VITE_OPENWEATHER_API_KEY`
+     - `VITE_GEMINI_API_KEY`
+5. **Firebase Configuration:**
+   - Make sure your Firebase project's **Authorized Domains** includes your Netlify URL (e.g., `your-site-name.netlify.app`).
+
+### 2. Deployment on GitHub Pages
 
 GitHub Pages is a great free option for hosting SkyWay, especially for personal use on mobile.
 
