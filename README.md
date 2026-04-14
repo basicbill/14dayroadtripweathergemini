@@ -77,6 +77,7 @@ Netlify is a very popular and easy-to-use hosting service for React apps.
    - Go to **Site settings > Environment variables** and add:
      - `VITE_OPENWEATHER_API_KEY`
      - `VITE_GEMINI_API_KEY`
+     - `VITE_MAPBOX_ACCESS_TOKEN`
 5. **Firebase Configuration:**
    - Make sure your Firebase project's **Authorized Domains** includes your Netlify URL (e.g., `your-site-name.netlify.app`).
 
@@ -87,7 +88,7 @@ GitHub Pages is a great free option for hosting SkyWay, especially for personal 
 1. **Push to GitHub:** Create a new repository and push your code.
 2. **Set up Secrets:** 
    - Go to your repo **Settings > Secrets and variables > Actions**.
-   - Add `VITE_GEMINI_API_KEY` and `VITE_OPENWEATHER_API_KEY`.
+   - Add `VITE_GEMINI_API_KEY`, `VITE_OPENWEATHER_API_KEY`, and `VITE_MAPBOX_ACCESS_TOKEN`.
 3. **Configure GitHub Actions:**
    - Create a file at `.github/workflows/deploy.yml` with a standard Vite deployment script.
 4. **Enable Pages:**
