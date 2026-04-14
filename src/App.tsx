@@ -71,7 +71,10 @@ export default function App() {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [speed, setSpeed] = useState(65);
-  const [time, setTime] = useState(new Date().toISOString().slice(0, 16));
+  const [time, setTime] = useState(() => {
+    const now = new Date();
+    return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  });
   const [waypoints, setWaypoints] = useState<string[]>([]);
 
   useEffect(() => {
@@ -296,10 +299,12 @@ export default function App() {
   };
 
   const loadRoute = (route: SavedRoute) => {
+    const localTime = new Date(route.departureTime - new Date(route.departureTime).getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    
     setOrigin(route.origin.name);
     setDestination(route.destination.name);
     setSpeed(route.averageSpeed);
-    setTime(new Date(route.departureTime).toISOString().slice(0, 16));
+    setTime(localTime);
     setWaypoints(route.waypoints.map(w => w.name));
     
     setShowHistory(false);
@@ -307,7 +312,7 @@ export default function App() {
       route.origin.name,
       route.destination.name,
       route.averageSpeed,
-      new Date(route.departureTime).toISOString().slice(0, 16),
+      localTime,
       route.waypoints.map(w => w.name),
       route.origin,
       route.destination,
