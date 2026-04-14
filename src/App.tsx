@@ -332,7 +332,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#f5f5f5]">
       {/* Sidebar / Controls */}
-      <div className="w-full md:w-[400px] bg-white border-r border-gray-200 flex flex-col h-screen overflow-y-auto z-10">
+      <div className="w-full md:w-[400px] bg-white border-r border-gray-200 flex flex-col md:h-screen md:overflow-y-auto z-10">
         <header className="p-6 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-md z-20">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -642,13 +642,13 @@ export default function App() {
       </div>
 
       {/* Map Area */}
-      <div className="flex-1 relative h-[50vh] md:h-screen flex flex-col">
-        <div className="flex-1 p-4 md:p-6">
+      <div className="flex-1 relative min-h-[400px] md:h-screen flex flex-col">
+        <div className="flex-1 p-4 md:p-6 min-h-[300px]">
           <MapComponent routePoints={routePoints} routeGeometry={routeGeometry} />
         </div>
         
-        {/* Bottom Timeline Overlay */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] z-20">
+        {/* Bottom Timeline Overlay - Absolute on desktop, relative on mobile for better scrolling */}
+        <div className="md:absolute md:bottom-10 md:left-1/2 md:-translate-x-1/2 w-full md:w-[80%] z-20 p-4 md:p-0">
           <WeatherTimeline points={routePoints} />
         </div>
       </div>
