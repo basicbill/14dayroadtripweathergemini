@@ -642,8 +642,8 @@ export default function App() {
       </div>
 
       {/* Map Area */}
-      <div className="flex-1 relative flex flex-col md:h-screen">
-        <div className="flex-1 p-4 md:p-6 h-[450px] md:h-auto">
+      <div className="w-full md:flex-1 relative flex flex-col md:h-screen">
+        <div className="p-4 md:p-6 h-[500px] md:flex-1">
           <MapComponent routePoints={routePoints} routeGeometry={routeGeometry} />
         </div>
         
