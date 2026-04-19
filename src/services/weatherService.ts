@@ -95,7 +95,8 @@ export async function fetchWeather(lat: number, lng: number, timestamp: number):
   }
 
   // Fallback to Open-Meteo for extended dates or if OWM fails/is missing
-  if (targetTime <= now + fourteenDaysInSeconds && targetTime >= now - 86400) {
+  const fourteenDaysWithBuffer = fourteenDaysInSeconds + 3600; // 1 hour buffer
+  if (targetTime <= now + fourteenDaysWithBuffer && targetTime >= now - 86400) {
     return fetchOpenMeteo(lat, lng, timestamp);
   }
 

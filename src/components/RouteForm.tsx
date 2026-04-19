@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Navigation, Clock, FastForward, Plus, Trash2 } from 'lucide-react';
 import AutocompleteInput from './AutocompleteInput';
+import { toLocalISOString } from '../lib/utils';
 
 interface RouteFormProps {
   onCalculate: (origin: string, dest: string, speed: number, time: string, waypoints: string[]) => void;
@@ -121,9 +122,7 @@ export default function RouteForm({
             <button 
               type="button"
               onClick={() => {
-                const now = new Date();
-                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                setTime(now.toISOString().slice(0, 16));
+                setTime(toLocalISOString(new Date()));
               }}
               className="text-[9px] text-blue-600 hover:underline font-bold"
             >

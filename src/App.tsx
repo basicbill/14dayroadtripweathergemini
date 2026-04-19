@@ -23,6 +23,7 @@ import {
   deleteDoc,
   doc
 } from 'firebase/firestore';
+import { toLocalISOString, fromLocalISOString } from './lib/utils';
 import { RoutePoint, Location, SavedRoute } from './types';
 import { getRoute, calculateETAs } from './services/routingService';
 import { fetchWeather } from './services/weatherService';
@@ -71,10 +72,7 @@ export default function App() {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [speed, setSpeed] = useState(65);
-  const [time, setTime] = useState(() => {
-    const now = new Date();
-    return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-  });
+  const [time, setTime] = useState(() => toLocalISOString(new Date()));
   const [waypoints, setWaypoints] = useState<string[]>([]);
 
   useEffect(() => {
@@ -226,9 +224,9 @@ export default function App() {
 
       setRouteGeometry(routeData.routes[0].geometry);
       
-      const departureTime = new Date(timeStr).getTime();
+      const departureTime = fromLocalISOString(timeStr).getTime();
       const now = Date.now();
-      const fourteenDaysMs = 14 * 24 * 60 * 60 * 1000;
+      const fourteenDaysMs = (14 * 24 * 60 * 60 + 3600) * 1000; // Add 1 hour buffer
 
       if (departureTime > now + fourteenDaysMs) {
         setError("Weather forecasts are available for up to 14 days. Please select an earlier departure date.");
@@ -269,7 +267,7 @@ export default function App() {
 
     setIsSaving(true);
     try {
-      const departureDate = new Date(time);
+      const departureDate = fromLocalISOString(time);
       const formattedTime = departureDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const formattedDate = departureDate.toLocaleDateString([], { month: 'short', day: 'numeric' });
       
@@ -299,12 +297,12 @@ export default function App() {
   };
 
   const loadRoute = (route: SavedRoute) => {
-    const localTime = new Date(route.departureTime - new Date(route.departureTime).getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    const localTimeStr = toLocalISOString(new Date(route.departureTime));
     
     setOrigin(route.origin.name);
     setDestination(route.destination.name);
     setSpeed(route.averageSpeed);
-    setTime(localTime);
+    setTime(localTimeStr);
     setWaypoints(route.waypoints.map(w => w.name));
     
     setShowHistory(false);
@@ -312,7 +310,7 @@ export default function App() {
       route.origin.name,
       route.destination.name,
       route.averageSpeed,
-      localTime,
+      localTimeStr,
       route.waypoints.map(w => w.name),
       route.origin,
       route.destination,
@@ -556,7 +554,7 @@ export default function App() {
                       <span>Departure</span>
                     </div>
                     <span className="text-gray-700 font-bold">
-                      {new Date(time).toLocaleString([], { 
+                      {fromLocalISOString(time).toLocaleString([], { 
                         month: 'short', 
                         day: 'numeric', 
                         hour: '2-digit', 
