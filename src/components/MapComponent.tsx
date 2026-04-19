@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { Wind } from 'lucide-react';
+import { Wind, ArrowUp } from 'lucide-react';
 import { Location, RoutePoint } from '../types';
 
 // Fix for default marker icons in Leaflet with React
@@ -16,6 +16,11 @@ let DefaultIcon = L.icon({
   iconAnchor: [12, 41]
 });
 L.Marker.prototype.options.icon = DefaultIcon;
+
+const getCompassDirection = (deg: number) => {
+  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  return directions[Math.round(deg / 45) % 8];
+};
 
 interface MapComponentProps {
   routePoints: RoutePoint[];
@@ -63,9 +68,18 @@ export default function MapComponent({ routePoints, routeGeometry }: MapComponen
                       <span className="font-medium">{Math.round(point.weather.temp)}°F</span>
                       <span className="text-gray-500">{point.weather.description}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-gray-500">
-                      <Wind className="w-3 h-3" />
-                      <span>Wind: {Math.round(point.weather.windSpeed)} mph</span>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <Wind className="w-3 h-3" />
+                        <span>{Math.round(point.weather.windSpeed)} mph</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <ArrowUp 
+                          className="w-3 h-3 text-blue-500" 
+                          style={{ transform: `rotate(${point.weather.windDeg + 180}deg)` }} 
+                        />
+                        <span className="font-bold">{getCompassDirection(point.weather.windDeg)}</span>
+                      </div>
                     </div>
                   </div>
                 ) : (

@@ -1,11 +1,16 @@
 import React from 'react';
 import { RoutePoint } from '../types';
-import { Cloud, Sun, CloudRain, Wind, Thermometer } from 'lucide-react';
+import { Cloud, Sun, CloudRain, Wind, Thermometer, ArrowUp, Navigation } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface WeatherTimelineProps {
   points: RoutePoint[];
 }
+
+const getCompassDirection = (deg: number) => {
+  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  return directions[Math.round(deg / 45) % 8];
+};
 
 export default function WeatherTimeline({ points }: WeatherTimelineProps) {
   if (points.length === 0) return null;
@@ -38,11 +43,22 @@ export default function WeatherTimeline({ points }: WeatherTimelineProps) {
             </span>
             
             {point.weather && (
-              <div className="flex items-center gap-1 mt-1">
-                <Wind className="w-3 h-3 text-gray-400" />
-                <span className="text-[9px] font-medium text-gray-500">
-                  {Math.round(point.weather.windSpeed)} mph
-                </span>
+              <div className="mt-1 space-y-0.5">
+                <div className="flex items-center justify-center gap-1">
+                  <Wind className="w-3 h-3 text-gray-400" />
+                  <span className="text-[9px] font-medium text-gray-500">
+                    {Math.round(point.weather.windSpeed)} mph
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-1 bg-gray-50 rounded px-1 py-0.5">
+                  <ArrowUp 
+                    className="w-2.5 h-2.5 text-blue-500 transition-transform duration-500" 
+                    style={{ transform: `rotate(${point.weather.windDeg + 180}deg)` }} 
+                  />
+                  <span className="text-[8px] font-bold text-gray-600 uppercase">
+                    {getCompassDirection(point.weather.windDeg)}
+                  </span>
+                </div>
               </div>
             )}
 

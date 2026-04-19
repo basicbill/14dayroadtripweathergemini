@@ -6,7 +6,7 @@ async function fetchOpenMeteo(lat: number, lng: number, timestamp: number): Prom
   try {
     const targetDate = new Date(timestamp).toISOString().split('T')[0];
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,weathercode,windspeed_10m,precipitation_probability&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto&start_date=${targetDate}&end_date=${targetDate}`
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,precipitation_probability&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto&start_date=${targetDate}&end_date=${targetDate}`
     );
     const data = await response.json();
 
@@ -43,6 +43,7 @@ async function fetchOpenMeteo(lat: number, lng: number, timestamp: number): Prom
       description,
       icon: "01d", // Placeholder
       windSpeed: data.hourly.windspeed_10m[closestIdx],
+      windDeg: data.hourly.winddirection_10m[closestIdx],
       precipProb: data.hourly.precipitation_probability[closestIdx]
     };
   } catch (error) {
@@ -85,6 +86,7 @@ export async function fetchWeather(lat: number, lng: number, timestamp: number):
             description: closest.weather[0].description,
             icon: closest.weather[0].icon,
             windSpeed: closest.wind.speed,
+            windDeg: closest.wind.deg,
             precipProb: closest.pop * 100
           };
         }

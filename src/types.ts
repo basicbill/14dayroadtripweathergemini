@@ -11,6 +11,7 @@ export interface WeatherSnapshot {
   description: string;
   icon: string;
   windSpeed: number;
+  windDeg: number;
   precipProb: number;
 }
 
