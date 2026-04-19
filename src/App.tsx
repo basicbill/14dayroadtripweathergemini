@@ -464,7 +464,7 @@ export default function App() {
                           
                           <button 
                             onClick={(e) => route.id && deleteRoute(e, route.id)}
-                            className="p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                            className="p-2 text-gray-300 hover:text-red-500 transition-colors md:opacity-0 md:group-hover:opacity-100"
                             title="Delete Trip"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -516,7 +516,7 @@ export default function App() {
                           </button>
                           <button 
                             onClick={(e) => route.id && deleteRoute(e, route.id)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-300 hover:text-red-500 transition-colors md:opacity-0 md:group-hover:opacity-100"
                             title="Delete Trip"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
